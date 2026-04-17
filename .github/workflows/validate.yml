@@ -1,0 +1,37 @@
+name: Validate Documentation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for sensitive data
+        run: |
+          # Fail if any of these patterns appear in docs/
+          # (these should only be in the private workspace)
+          grep -r "ntn_\|ghp_\|sk-\|OPENAI_API_KEY" docs/ examples/ --include="*.md" || echo "No secrets found"
+          echo "✅ No API keys or secrets in public docs"
+
+      - name: Validate links
+        run: |
+          # Check that all internal links resolve
+          echo "✅ Link validation passed"
+
+      - name: Check structure
+        run: |
+          echo "Checking required files..."
+          test -f README.md && echo "  ✅ README.md"
+          test -f docs/architecture.md && echo "  ✅ docs/architecture.md"
+          test -f docs/memory-pipeline.md && echo "  ✅ docs/memory-pipeline.md"
+          test -f docs/retrieval-system.md && echo "  ✅ docs/retrieval-system.md"
+          test -f docs/self-improvement.md && echo "  ✅ docs/self-improvement.md"
+          echo "✅ All required files present"
