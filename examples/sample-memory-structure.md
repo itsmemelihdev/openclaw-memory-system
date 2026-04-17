@@ -1,55 +1,55 @@
-# Sample Memory Structure — Exemple fictif
+# Sample Memory Structure
 
-> Ce fichier montre la structure complète d'un système de mémoire.
-> Toutes les données sont **fictives** — inspirées du design réel mais sans aucune donnée sensible.
+> This file shows the complete structure of a memory system.
+> All data is **fictional** — inspired by the real design but without sensitive data.
 
 ---
 
-## Structure globale
+## Global Structure
 
 ```
 ~/.openclaw/workspace/
-├── MEMORY.md                    # Hub central
-├── BOOT.md                      # Checklist de démarrage
+├── MEMORY.md                    # Central hub
+├── BOOT.md                      # Startup checklist
 │
 ├── memory/
-│   ├── dailies/                 # Logs bruts de session
+│   ├── dailies/                 # Raw session logs
 │   │   ├── 2026-04-01.md
 │   │   ├── 2026-04-02.md
 │   │   └── 2026-04-03.md
 │   │
-│   ├── projects/                # Un fichier par projet
+│   ├── projects/                # One file per project
 │   │   ├── ai-content-generator.md
 │   │   └── newsletter-platform.md
 │   │
-│   ├── tools/                   # Un fichier par outil
+│   ├── tools/                  # One file per tool
 │   │   ├── notion-api.md
 │   │   ├── openai-api.md
 │   │   ├── github-api.md
 │   │   └── openclaw.md
 │   │
-│   ├── people/                  # Un fichier par personne
+│   ├── people/                 # One file per person
 │   │   ├── alice-demo.md
 │   │   └── bob-mentor.md
 │   │
-│   ├── ideas/                   # Idées et todos
+│   ├── ideas/                  # Ideas and todos
 │   │   └── backlog.md
 │   │
-│   └── summaries/               # Synthèses périodiques
+│   └── summaries/             # Periodic syntheses
 │       ├── weekly-2026-W14.md
 │       └── self-review.md
 │
-├── .learnings/                  # Boucle d'amélioration
+├── .learnings/                 # Self-improvement loop
 │   ├── LEARNINGS.md
 │   ├── ERRORS.md
 │   └── FEATURE_REQUESTS.md
 │
-└── .last_distill_date           # State: dernière distillation
+└── .last_distill_date          # State: last distillation
 ```
 
 ---
 
-## MEMORY.md (exemple)
+## MEMORY.md (example)
 
 ```markdown
 # MEMORY.md — Long-Term Memory
@@ -64,7 +64,7 @@
 - **Name**: Alice (example user)
 - **Timezone**: America/New_York
 - **Business**: AI content creation agency
-- **Preferred language**: French (FR)
+- **Preferred language**: English (primary)
 
 ## Projects
 
@@ -101,7 +101,7 @@
 
 ## Reformulated Concepts
 
-- "memory" / "mémoire" / "long-term memory" / "persistent memory"
+- "memory" / "mémoire" / "MEMORY" / "long-term memory" / "persistent memory"
 - "chief of staff" / "bras droit" / "assistant" / "agent"
 - "distillation" / "cleanup" / "memory cleaning" / "cron memory"
 
@@ -159,8 +159,8 @@ First project after founding the company.
 ### Keywords:
 AI, content generation, GPT-4, DALL-E, blog, social media,
 email, newsletter, automation, Make.com, content pipeline
-artificial intelligence, texte, image generation, contenu,
-rédaction automatique, génération contenu IA
+artificial intelligence, text, image generation, content,
+automatic writing, AI content generation
 ```
 
 ---
@@ -193,7 +193,7 @@ curl -s -X POST "https://api.openai.com/v1/chat/completions" \
   }'
 ```
 
-## Models available
+## Models Available
 - gpt-4o (latest, recommended)
 - gpt-4-turbo
 - gpt-3.5-turbo (cheaper)
@@ -257,7 +257,7 @@ Helped define the initial positioning.
 
 ### Keywords:
 Bob, mentor, business mentor, tech entrepreneur, startup,
-investor, advisor, AI expert, expert IA, mentorat
+investor, advisor, AI expert, expert IA, mentorship
 ```
 
 ---
