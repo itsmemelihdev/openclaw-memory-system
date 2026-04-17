@@ -1,14 +1,12 @@
-# Sample Distillation Output — Exemple fictif
+# Sample Distillation Output
 
-> Ce fichier montre le résultat d'une distillation : comment les daily logs
-> sont transformés en mémoire long-terme structurée.
-> Toutes les données sont **fictives**.
+> This file shows the result of distillation: how daily logs are transformed into structured long-term memory. All data is **fictional**.
 
 ---
 
-## Input: Raw Dailies (avant distillation)
+## Input: Raw Dailies (before distillation)
 
-Trois fichiers dans `memory/dailies/` :
+Three files in `memory/dailies/`:
 
 ### `2026-04-01.md`
 ```markdown
@@ -39,10 +37,10 @@ Trois fichiers dans `memory/dailies/` :
 
 ---
 
-## Output: MEMORY.md (après distillation)
+## Output: MEMORY.md (after distillation)
 
 ```markdown
-<!-- Ajout dans MEMORY.md sous ## Distilled Updates -->
+<!-- Added to MEMORY.md under ## Distilled Updates -->
 
 ## Distilled 2026-04-04 09:00
 
@@ -52,7 +50,7 @@ Trois fichiers dans `memory/dailies/` :
 - **Pricing**: $500/month per client (not yet tested)
 - **Content approach**: Quality > quantity for client retention
 - **Image strategy**: DALL-E for consistency (not Midjourney)
-- **Documentation**: French preferred for user-facing docs
+- **Documentation**: English preferred (noted from user)
 
 ### Market Insights (validate in Q2)
 
@@ -69,7 +67,7 @@ Trois fichiers dans `memory/dailies/` :
 ### Next Steps (pending)
 
 - Create ROI calculator before first demo
-- Research competitor pricing (BO-304)
+- Research competitor pricing
 - Test with 3 prospects pipeline
 - Plan Phase 2 testing starting 2026-04-07
 
@@ -130,11 +128,11 @@ Phase 2 in progress: Prototype (testing with 3 prospects)
 ## Identity
 - **Name**: Alice (fictional example)
 - **Timezone**: America/New_York
-- **Language**: French (documentation preferred)
+- **Language**: English (documentation preferred)
 - **Role**: Founder of AI content agency
 
 ## Preferences
-- French documentation and communication
+- English documentation and communication
 - Quality over quantity in content
 - Data-driven decisions (ROI focus)
 
@@ -172,14 +170,14 @@ client, customer, persona
 **Priority**: medium
 **Status**: noted
 
-**Summary**: User prefers French in documentation
+**Summary**: User prefers English in documentation
 
 **Details**:
 - Mentioned 2x in this week's dailies
 - Should apply to all user-facing docs going forward
 - Action: Add to people/example-user.md preferences
 
-**Action**: French language preference documented in user profile.
+**Action**: English language preference documented in user profile.
 
 ---
 
@@ -233,10 +231,10 @@ the conversation needs to be about business metrics, not creative output.
 
 ---
 
-## What was FILTERED OUT (not distilled)
+## What Was FILTERED OUT (not distilled)
 
 | Entry | Why filtered |
-|-------|--------------|
+|-------|-------------|
 | "47 API calls today" | Too granular, technical noise |
 | "Cache invalidation not working" | Error already fixed, not recurring |
 | "Midjourney API still in beta" | Already decided to use DALL-E |
@@ -244,7 +242,7 @@ the conversation needs to be about business metrics, not creative output.
 
 ---
 
-## Summary of transformation
+## Transformation Summary
 
 ```
 INPUT: 3 daily files (2026-04-01, 02, 03)
@@ -276,7 +274,7 @@ OUTPUT:
 | No real client names | ✅ All fictional |
 | No real pricing data | ✅ Generic only |
 | No passwords | ✅ None |
-| French content generic | ✅ No user specifics |
+| English content only | ✅ No sensitive specifics |
 | No session transcripts | ✅ Only distilled facts |
 
 ---
