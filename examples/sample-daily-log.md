@@ -1,11 +1,11 @@
-# Sample Daily Log — Exemple fictif
+# Sample Daily Log
 
-> Ce fichier montre à quoi ressemble un daily log après une journée de session.
-> Toutes les données sont **fictives**.
+> This file shows what a daily log looks like after a session day.
+> All data is **fictional**.
 
 ---
 
-## Fichier: `memory/dailies/2026-04-03.md`
+## File: `memory/dailies/2026-04-03.md`
 
 ```markdown
 # 2026-04-03 — Daily Log (Example)
@@ -84,57 +84,57 @@
 
 ---
 
-## Comment lire ce fichier
+## How to Read This File
 
-### Ce qui est capturé
-- **Decisions**: Choix explicites ou implicites
+### What's Captured
+- **Decisions**: Explicit or implicit choices
 - **Information**: Facts, context, reminders
-- **Insights**: Patterns observés, intuitions
-- **Errors**: Ce qui a échoué + correction appliquée
-- **Tasks**: Actions identifiées
-- **Preferences**: Ce que l'utilisateur préfère
+- **Insights**: Observed patterns, intuitions
+- **Errors**: What failed + applied fix
+- **Tasks**: Identified actions
+- **Preferences**: What the user prefers
 
-### Ce qui N'est PAS ici
-- Pensées privées de l'agent
-- Logs techniques detalliés
-- Données sensibles (clé API, passwords)
-- Conversations complètes (trop long)
+### What's NOT Here
+- Private agent thoughts
+- Detailed technical logs
+- Sensitive data (API keys, passwords)
+- Complete conversations (too long)
 
 ---
 
-## Format standardisé
+## Standardized Format
 
 ```markdown
-## [HH:MM] — [Contexte]
+## [HH:MM] — [Context]
 
-* Information: [Fact ou contexte]
-* Decision: [Choix fait]
-* Insight: [Pattern ou intuition]
-* Error: [Ce qui a échoué]
-* Correction: [Comment corrigé] (si applicable)
-* Task: [Tâche identifiée]
-* Preference: [Ce que l'utilisateur préfère]
-* Idea: [Idée en vrac]
+* Information: [Fact or context]
+* Decision: [Choice made]
+* Insight: [Pattern or intuition]
+* Error: [What failed]
+* Correction: [How it was fixed] (if applicable)
+* Task: [Task identified]
+* Preference: [User preference]
+* Idea: [Raw idea]
 ```
 
 ---
 
-## Règles de capture
+## Capture Rules
 
-| Règle | Pourquoi |
-|-------|----------|
-| Append only | On ne modifie jamais |
-| Timestamps FR/EN | Universal |
-| Une想法 par line | Facilite le parsing |
-| Pas de secrets | Jamais dans daily |
-| Pas de logs techniques | Bruit, pas pertinent |
-| Filter later | On ne sait pas ce qui sera utile |
+| Rule | Why |
+|------|-----|
+| Append only | We never modify |
+| Timestamps | Universal format |
+| One idea per line | Easier parsing |
+| No secrets | Never in daily |
+| No technical logs | Noise, not relevant |
+| Filter later | We don't know what will be useful |
 
 ---
 
-## Transformation vers distillation
+## Transformation to Distillation
 
-Ce log sera transformé par le cron 21h en :
+This log will be transformed by cron 21h into:
 
 ```
 ## Distilled 2026-04-03
@@ -142,7 +142,7 @@ Ce log sera transformé par le cron 21h en :
 ### Decisions
 - Move AI Content Generator to Phase 3 by end of week
 - Test B2B and B2C segments in Q2
-- Use DALL-E for hero images, Midjourney for variations
+- Use DALL-E for hero images, not Midjourney
 - Implement content caching (Redis)
 - Document cost optimization for weekly report
 
@@ -169,10 +169,10 @@ Ce log sera transformé par le cron 21h en :
 
 ---
 
-## Sécurisation des données
+## Data Sanitization
 
-| Donnée fictive | Remplacé par |
-|----------------|--------------|
+| Fictional Data | Replaced By |
+|----------------|-------------|
 | Alice | example user |
 | Bob | fictional mentor |
 | ShopXYZ | fictional client |
