@@ -1,97 +1,97 @@
-# Architecture — 5 Couches
+# Architecture — 5 Layers
 
-> Comment le système de mémoire est architecturé en couches independientes mais interconnectées.
-
----
-
-## Vue d'ensemble
-
-Le système fonctionne comme un **pipeline de traitement de l'information** :
-
-```
-DonnÉes brutes → Nettoyage → Stockage structurÉ → Liens → Retrieval
-   (session)     (distillation)   (atomic)     (graph)   (search)
-```
-
-Chaque couche a une responsabilité unique et peut être améliorée独立的.
+> How the memory system is organized into independent but interconnected layers.
 
 ---
 
-## Couche 1 — Capture (`memory/dailies/`)
+## Overview
 
-### Responsabilité
-Collecter **tout** sans filtrer. La capture est un funnel large.
+The system works as an **information processing pipeline**:
 
-### Principe
-> "Ne jamais filtrer à la étape de capture."
+```
+Raw data → Cleaning → Structured storage → Links → Retrieval
+(session)   (distillation)   (atomic)     (graph)  (search)
+```
+
+Each layer has a single responsibility and can be improved independently.
+
+---
+
+## Layer 1 — Capture (`memory/dailies/`)
+
+### Responsibility
+Collect **everything** without filtering. Capture is a wide funnel.
+
+### Principle
+> "Never filter at the capture stage."
 
 ### Format
 ```markdown
-## [HH:MM] — [Contexte]
+## [HH:MM] — [Context]
 
 * Information: ...
 * Decision: ...
 * Insight: ...
-* Error: ... (optionnel)
+* Error: ... (optional)
 ```
 
-### Pourquoi sans filtre ?
-- On ne sait pas ce qui sera pertinent plus tard
-- Les insights unexpected sont souvent les plus précieux
-- Le bruit peut être supprimé lors de la distillation
+### Why no filter?
+- We don't know what will be relevant later
+- Unexpected insights are often the most valuable
+- Noise can be removed during distillation
 
-### Règle absolue
-- **Écrire** dans `memory/dailies/YYYY-MM-DD.md`
-- **Ne jamais** écrire dans MEMORY.md pendant la session
-- **Ne jamais** modifier les fichiers atomiques pendant la session
+### Hard Rule
+- **Write** to `memory/dailies/YYYY-MM-DD.md`
+- **Never** write to MEMORY.md during session
+- **Never** modify atomic files during session
 
 ---
 
-## Couche 2 — Distillation (CRON)
+## Layer 2 — Distillation (CRON)
 
-### Responsabilité
-Transformer les logs bruts en **mémoire condensée**.
+### Responsibility
+Transform raw logs into **condensed memory**.
 
-### Processus
+### Process
 ```
-1. Lire tous les dailies depuis .last_distill_date
-2. Extraire: Decision + Information + Insight + Error
-3. Filtrer: ne garder que les faits stables (> 1 mois pertinent)
-4. Formuler: reformuler clairement pour retrieval
-5. Distribuer: ecrire dans les bons fichiers atomiques
-6. Logger: mettre à jour .last_distill_date
+1. Read all dailies since .last_distill_date
+2. Extract: Decision + Information + Insight + Error
+3. Filter: keep only stable facts (> 1 month relevant)
+4. Reformulate: write clearly for retrieval
+5. Distribute: write to correct atomic files
+6. Log: update .last_distill_date
 ```
 
-### Sorties
-- `MEMORY.md` — sections `## Distilled Updates` avec date
-- `memory/projects/*.md` — mis à jour si nécessaire
-- `memory/tools/*.md` — nouveau tool → nouveau fichier
-- `memory/people/*.md` — nouvelle personne → nouveau fichier
-- `memory/summaries/self-review.md` — si pattern détecté
+### Outputs
+- `MEMORY.md` — sections `## Distilled Updates` with date
+- `memory/projects/*.md` — updated if needed
+- `memory/tools/*.md` — new tool → new file
+- `memory/people/*.md` — new person → new file
+- `memory/summaries/self-review.md` — if pattern detected
 
-### Fréquence
-- **Cron**: 21h Paris quotidien
-- **Premier run**: traite tous les dailies
-- **Runs suivants**: ne traite que les nouveaux fichiers
+### Frequency
+- **Cron**: 21h Paris daily
+- **First run**: processes all dailies
+- **Subsequent runs**: only new files
 
 ---
 
-## Couche 3 — Mémoire Atomique (`memory/*/`)
+## Layer 3 — Atomic Memory (`memory/*/`)
 
-### Responsabilité
-Stocker **une entité par fichier** avec un seul sujet.
+### Responsibility
+Store **one entity per file** with a single topic.
 
 ### Structure
 ```
 memory/
-├── projects/     # Un fichier = un projet
-├── tools/        # Un fichier = un outil/config
-├── people/       # Un fichier = une personne
-├── ideas/        # Un fichier = une liste d'idées
-└── summaries/    # Un fichier = une période
+├── projects/     # One file = one project
+├── tools/        # One file = one tool/config
+├── people/       # One file = one person
+├── ideas/        # One file = ideas backlog
+└── summaries/    # One file = one period
 ```
 
-### Template de fichier atomique
+### Atomic File Template
 ```markdown
 # [Entity Name]
 
@@ -114,17 +114,17 @@ Why this file exists and how it connects to the system.
 synonym, variant, equivalent term, french, english, abbreviation
 ```
 
-### Règle
-> Un fichier doit pouvoir être compréhensible sans lire les autres.
+### Rule
+> A file should be understandable without reading others.
 
 ---
 
-## Couche 4 — Graph Linking
+## Layer 4 — Graph Linking
 
-### Responsabilité
-Créer des **chemins de navigation** entre fichiers.
+### Responsibility
+Create **navigation paths** between files.
 
-### Sections ajoutées
+### Sections Added
 
 **`### Related:`**
 ```markdown
@@ -133,14 +133,14 @@ Créer des **chemins de navigation** entre fichiers.
 * memory/tools/notion-api.md
 * memory/people/john-doe.md
 ```
-→ Liens directs vers les fichiers liés
+→ Direct links to related files
 
 **`### Context:`**
 ```markdown
 ### Context:
-Ce fichier document le projet X. Il a été créé suite à...
+This file documents project X. It was created following...
 ```
-→ Explication courte du lien et de l'origine
+→ Short explanation of the link and origin
 
 **`### Keywords:`**
 ```markdown
@@ -149,30 +149,30 @@ projet, project, example, demo, fictional
 projet example, projet demo, projet fictif
 projet X, projet initial
 ```
-→ Synonyms + variantes FR/EN + termes associés
+→ Synonyms + FR/EN variants + related terms
 
-### Pourquoi ?
-- `memory_search` search dans le contenu + les keywords
-- Les Related: créent des chemins de navigation
-- Le Context: aide à comprendre le contexte sans lire le fichier
+### Why?
+- `memory_search` searches content + keywords
+- Related: creates navigation paths
+- Context: helps understand without reading the file
 
 ---
 
-## Couche 5 — Retrieval Optimization
+## Layer 5 — Retrieval Optimization
 
-### Responsabilité
-Maximiser la **probabilité de trouver** la bonne information.
+### Responsibility
+Maximize the **probability of finding** the right information.
 
-### Stratégies
+### Strategies
 
-#### 1. Synonyms massifs
+#### 1. Massive Synonyms
 ```markdown
 ### Keywords:
-password, mdp, mot de passe, credentials, login, auth, access, clé
+password, mdp, mot de passe, credentials, login, auth, access, clé, clé d'accès
 ```
-→ Meme si l'utilisateur tape "mdp", on retrouve "password"
+→ Even if user types "mdp", we find "password"
 
-#### 2. Multi-formulation des concepts
+#### 2. Multi-Formulation of Concepts
 ```markdown
 ## Reformulated Concepts
 - "memory" / "mémoire" / "MEMORY" / "long-term memory"
@@ -180,68 +180,68 @@ password, mdp, mot de passe, credentials, login, auth, access, clé
 - "cron" / "scheduled task" / "tâche planifiée" / "automation"
 ```
 
-#### 3. FR/EN mixing
+#### 3. FR/EN Mixing
 ```markdown
 ### Keywords:
 notion, Notion, database, base de données, bloc notes intelligent
 OS, operating system, système, mission control, workspace
 ```
 
-#### 4. Hybrid search (concept)
-> Note: L'implémentation actuelle utilise search sémantique via `memory_search`.
-> Une version hybrid (semantic + BM25) serait ideale pour le future.
+#### 4. Hybrid Search (concept)
+> Note: Current implementation uses semantic search via `memory_search`.
+> A hybrid version (semantic + BM25) would be ideal for the future.
 
-### Processus de retrieval
+### Retrieval Process
 ```
-1. Query utilisateur
-2. Générer variants (FR/EN/synonyms)
-3. Chercher dans: MEMORY.md + tous les fichiers atomiques
-4. Retourner top results avec path + lines
-5. Si unclear → lire le fichier complet
+1. User query
+2. Generate variants (FR/EN/synonyms)
+3. Search: MEMORY.md + all atomic files
+4. Return top results with path + lines
+5. If unclear → read full file
 ```
 
 ---
 
-## Interaction entre couches
+## Interaction Between Layers
 
 ```
 [Session]
-    ↓ BOOT: lit SOUL.md + USER.md + dailies
-[Context chargé]
+    ↓ BOOT: reads SOUL.md + USER.md + dailies
+[Context loaded]
     ↓ Interaction
-[Append to daily] ← Couche 1
+[Append to daily] ← Layer 1
     ↓ cron 21h
-[Distillation] ← Couche 2
+[Distillation] ← Layer 2
     ↓
-[Atomic files] ← Couche 3
+[Atomic files] ← Layer 3
     ↓
-[Graph links] ← Couche 4
+[Graph links] ← Layer 4
     ↓
-[Mise à jour keywords + related]
+[Update keywords + related]
     ↓
-[Query] → retrieval ← Couche 5
+[Query] → retrieval ← Layer 5
     ↓
 [Response]
 ```
 
 ---
 
-## Scalabilité
+## Scalability
 
-| Aspect | Limite actuelle | Amélioration possible |
-|--------|-----------------|----------------------|
-| Fichiers atomiques | N fichiers | Partition par domaine |
-| Keywords | Manuel | Génération auto via LLM |
-| Graph links | Manuel | Auto-détection via embeddings |
+| Aspect | Current Limit | Possible Improvement |
+|--------|---------------|---------------------|
+| Atomic files | N files | Partition by domain |
+| Keywords | Manual | Auto-generation via LLM |
+| Graph links | Manual | Auto-detection via embeddings |
 | Retrieval | memory_search | Hybrid BM25 + semantic |
 
 ---
 
-## Principes de design
+## Design Principles
 
-1. **Séparation des concerns** — Chaque couche a un job clair
-2. **Pas de duplication** — Un fait = un endroit
-3. **Append-only pour les logs** — Jamais overwrite
-4. **Distillation aggressive** — Garder MEMORY.md court
-5. **Atomicité** — Une entité = un fichier
-6. **Graph explicite** — Pas de liens implicites
+1. **Separation of concerns** — Each layer has a clear job
+2. **No duplication** — One fact = one location
+3. **Append-only for logs** — Never overwrite
+4. **Aggressive distillation** — Keep MEMORY.md short
+5. **Atomicity** — One entity = one file
+6. **Explicit graph** — No implicit links
