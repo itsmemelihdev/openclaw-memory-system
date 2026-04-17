@@ -1,34 +1,34 @@
-# Retrieval System — Comment retrouver l'information
+# Retrieval System — How to Find Information
 
-> Stratégies pour maximiser la probabilité de trouver la bonne information au bon moment.
-
----
-
-## Le problème fondamental
-
-Un système de mémoire n'est utile que si on peut **retrouver** l'information quand on en a besoin.
-
-Mais :
-
-- L'utilisateur ne tape pas les mots exacts
-- L'information peut être formulée différemment
-- Le contexte change entre storage et retrieval
-- Les synonyms et variations existent dans les deux langues
+> Strategies to maximize the probability of finding the right information at the right time.
 
 ---
 
-## Stratégie 1 — Keywords massifs
+## The Fundamental Problem
 
-### Principe
-Dans chaque fichier, inclure **toutes les variantes** du même concept.
+A memory system is only useful if we can **retrieve** information when needed.
 
-### Exemple basique
+But:
+
+- Users don't type exact words
+- Information can be worded differently
+- Context changes between storage and retrieval
+- Synonyms and variations exist in both languages
+
+---
+
+## Strategy 1 — Massive Keywords
+
+### Principle
+In each file, include **all variants** of the same concept.
+
+### Basic Example
 ```markdown
 ### Keywords:
 password, mdp, mot de passe, credentials, login, auth, access, clé, clé d'accès
 ```
 
-### Multi-langue (FR/EN)
+### Multi-language (FR/EN)
 ```markdown
 ### Keywords:
 notion, Notion, database, base de données, bloc notes intelligent
@@ -36,7 +36,7 @@ OS, operating system, système, mission control, workspace
 crontab, cron, scheduled task, tâche planifiée, automation, job
 ```
 
-### Synonyms techniques
+### Technical Synonyms
 ```markdown
 ### Keywords:
 API key, clé API, token, bearer token, authorization header
@@ -44,7 +44,7 @@ webhook, callback, notification, trigger, event
 embedding, vector, embedding model, semantic vector
 ```
 
-### Variantes orthographiques
+### Orthographic Variants
 ```markdown
 ### Keywords:
 Behavior, behaviour (UK vs US)
@@ -55,12 +55,12 @@ Organisation, organization
 
 ---
 
-## Stratégie 2 — Reformulated Concepts
+## Strategy 2 — Reformulated Concepts
 
-### Principe
-Dans `MEMORY.md`, lister les mêmes concepts sous plusieurs formulations.
+### Principle
+In `MEMORY.md`, list the same concepts under multiple formulations.
 
-### Exemple
+### Example
 ```markdown
 ## Reformulated Concepts — Multi-phrase retrieval
 
@@ -71,46 +71,46 @@ Dans `MEMORY.md`, lister les mêmes concepts sous plusieurs formulations.
 - "récupération mémoire" / "memory retrieval" / "semantic search" / "memory search"
 ```
 
-### Pourquoi ça marche
-Quand l'utilisateur cherche "memory bank", le search trouve aussi les fichiers qui contain "mémoire long terme".
+### Why It Works
+When the user searches "memory bank", the search also finds files containing "long term memory".
 
 ---
 
-## Stratégie 3 — Graph Linking
+## Strategy 3 — Graph Linking
 
-### Principe
-Les fichiers se pointent entre eux, créant des chemins de navigation.
+### Principle
+Files point to each other, creating navigation paths.
 
 ### Structure
 ```markdown
 ### Related:
-* memory/projects/example-project.md      ← projet lié
-* memory/tools/notion-api.md              ← outil utilisé
-* memory/people/john-doe.md               ← personne impliquée
+* memory/projects/example-project.md      ← related project
+* memory/tools/notion-api.md              ← tool used
+* memory/people/john-doe.md               ← person involved
 
 ### Context:
-Ce fichier documente le projet X. Il a été créé suite à
-la demande de l'utilisateur en avril 2026.
+This file documents project X. It was created following
+user request in April 2026.
 ```
 
-### Avantage
-Quand on cherche "projet X", on trouve aussi "outil Y" et "personne Z" qui y sont liés.
+### Advantage
+When searching for "project X", we also find "tool Y" and "person Z" related to it.
 
 ---
 
-## Stratégie 4 — Contextual Headers
+## Strategy 4 — Contextual Headers
 
-### Principe
-Chaque fichier commence par un header descriptif.
+### Principle
+Each file starts with a descriptive header.
 
-### Mauvais
+### Bad
 ```markdown
 # Notes
 
-Projet en cours...
+Project in progress...
 ```
 
-### Bon
+### Good
 ```markdown
 # Example Project — AI Content Generation System
 
@@ -121,17 +121,17 @@ Projet en cours...
 This project tracks the development of...
 ```
 
-### Pourquoi
-Les headers sont les premiers résultats du search et contiennent l'information clé.
+### Why
+Headers are the first search results and contain key information.
 
 ---
 
-## Stratégie 5 — Frequency-based Boosting
+## Strategy 5 — Frequency-Based Boosting
 
-### Principe
-Les informations qui apparaissent souvent dans les dailies sont probablement importantes.
+### Principle
+Information that appears often in dailies is probably important.
 
-### Implémentation (conceptuelle)
+### Implementation (conceptual)
 ```
 1. Count occurrences of each fact across dailies
 2. If fact appears > 3 times → boost priority
@@ -139,7 +139,7 @@ Les informations qui apparaissent souvent dans les dailies sont probablement imp
 4. Combine frequency + recency for ranking
 ```
 
-### Exemple
+### Example
 ```
 Fact: "User prefers short responses"
 - Appears in: 5 dailies
@@ -149,12 +149,12 @@ Fact: "User prefers short responses"
 
 ---
 
-## Stratégie 6 — Hybrid Search (Concept)
+## Strategy 6 — Hybrid Search (Concept)
 
-### Principe
-Combiner search sémantique + keyword matching.
+### Principle
+Combine semantic search + keyword matching.
 
-#### Search sémantique (embeddings)
+#### Semantic Search (embeddings)
 ```python
 # Pseudo-code
 query_embedding = embed(user_query)
@@ -162,36 +162,36 @@ file_embedding = embed(file_content)
 similarity = cosine_similarity(query_embedding, file_embedding)
 ```
 
-#### Keyword matching (BM25)
+#### Keyword Matching (BM25)
 ```python
 # Pseudo-code
 score = bm25_score(user_query, file_content)
 ```
 
-#### Hybrid combination
+#### Hybrid Combination
 ```python
 final_score = 0.7 * semantic_similarity + 0.3 * keyword_score
 ```
 
-### État actuel
-L'implémentation actuelle utilise `memory_search` (search sémantique).
-Une version hybrid serait une amélioration future.
+### Current State
+Current implementation uses `memory_search` (semantic search).
+A hybrid version would be a future improvement.
 
 ---
 
-## Stratégie 7 — Chunking Strategy
+## Strategy 7 — Chunking Strategy
 
-### Principe
-Diviser les fichiers en chunks avec des headers claros.
+### Principle
+Split files into chunks with clear headers.
 
-### Mauvais
+### Bad
 ```markdown
 # Very Long File
 
-[... 500 lines de contenu sans structure ...]
+[... 500 lines of unstructured content ...]
 ```
 
-### Bon
+### Good
 ```markdown
 # Example Tool
 
@@ -205,29 +205,29 @@ Diviser les fichiers en chunks avec des headers claros.
 [content]
 ```
 
-### Avantage
-Le retrieval peut retourner un chunk specific sans tout lire.
+### Advantage
+Retrieval can return a specific chunk without reading everything.
 
 ---
 
-## Stratégie 8 — Query Expansion
+## Strategy 8 — Query Expansion
 
-### Principe
-Transformer la requête utilisateur en plusieurs variantes.
+### Principle
+Transform the user query into multiple variants.
 
-### Processus
+### Process
 ```
-User query: "comment créer un client Notion ?"
+User query: "how to create a Notion client?"
 
 Expanded queries:
-1. "comment créer un client Notion ?"
-2. "créer client Notion API"
+1. "how to create a Notion client?"
+2. "create Notion API client"
 3. "notion api client setup"
 4. "initialize Notion API client"
 5. "notion client python"
 ```
 
-### Implémentation (future)
+### Implementation (future)
 ```python
 def expand_query(query):
     base = query
@@ -239,7 +239,7 @@ def expand_query(query):
 
 ---
 
-## Template de fichier optimisé pour retrieval
+## Retrieval-Optimized File Template
 
 ```markdown
 # [Entity Name] — [Type]
@@ -261,8 +261,8 @@ More details.
 * path/to/related-file-2.md
 
 ### Context:
-Explication courte du fichier: pourquoi il existe,
-quand il a été créé, quel problème il résout.
+Short explanation of the file: why it exists,
+when it was created, what problem it solves.
 
 ### Keywords:
 # Primary terms (exact match)
@@ -289,7 +289,7 @@ abbr, abbr2, short-form, acronym
 
 ---
 
-## Processus de retrieval étape par étape
+## Step-by-Step Retrieval Process
 
 ```
 1. RECEIVE QUERY from user or agent
@@ -309,9 +309,9 @@ abbr, abbr2, short-form, acronym
      Search with partial match
 
 4. AGGREGATE RESULTS
-   - Dédoublonner les résultats identiques
-   - Combiner les scores
-   - Trier par relevance
+   - Deduplicate identical results
+   - Combine scores
+   - Sort by relevance
 
 5. RANK
    Factors:
@@ -336,27 +336,27 @@ abbr, abbr2, short-form, acronym
 
 ---
 
-## Meilleures pratiques
+## Best Practices
 
-| Practice | Pourquoi |
-|----------|----------|
-| Mettre les mots-clés en premier | Highlight pour le search |
-| Utiliser les deux langues | FR + EN = double coverage |
-| Garder les fichiers courts | Plus facile à chunk |
-| Utiliser des headers descriptifs | Améliore le matching |
-| Lier les fichiers entre eux | Graph navigation |
-| Mettre à jour les keywords | Quand nouveau terme découvert |
-| Tester le retrieval régulièrement | Valider que ça marche |
+| Practice | Why |
+|----------|-----|
+| Put keywords first | Highlight for search |
+| Use both languages | FR + EN = double coverage |
+| Keep files short | Easier to chunk |
+| Use descriptive headers | Improves matching |
+| Link files together | Graph navigation |
+| Update keywords | When new term discovered |
+| Test retrieval regularly | Validate it works |
 
 ---
 
-## Anti-patterns à éviter
+## Anti-Patterns to Avoid
 
 | Anti-pattern | Problem | Solution |
 |--------------|---------|----------|
-| Fichier trop long | Chunking failure | Split en plusieurs fichiers |
-| Keywords vides | No match | Toujours inclure keywords |
-| Pas de Related: | Isolation | Always link related files |
-| Headers vagues | Poor match | "Notes" → "Q1 2026 Sales Metrics" |
-| Doublons | Inconsistency | Un seul fichier par entité |
-| Données sensibles | Security risk | Never in public repo |
+| File too long | Chunking failure | Split into multiple files |
+| Empty keywords | No match | Always include keywords |
+| No Related: | Isolation | Always link related files |
+| Vague headers | Poor match | "Notes" → "Q1 2026 Sales Metrics" |
+| Duplicates | Inconsistency | One file per entity |
+| Sensitive data | Security risk | Never in public repo |
