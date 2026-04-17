@@ -1,43 +1,43 @@
-# Self-Improvement — Boucle de feedback continu
+# Self-Improvement — Continuous Feedback Loop
 
-> Comment le système de mémoire apprend de ses erreurs et s'améliore automatiquement.
-
----
-
-## Principe fondamental
-
-Un système de mémoire **statique** se dégrade avec le temps :
-
-- Accumulation de bruit
-- Information outdated
-- Retrieval failure non corrigé
-- Structure inadaptée aux nouveaux besoins
-
-Un système **auto-améliorant** :
-- Identifie ses propres erreurs
-- Corrige les problèmes récurrents
-- Évolution avec les besoins
+> How the memory system learns from its errors and improves automatically.
 
 ---
 
-## Architecture de la boucle
+## Fundamental Principle
+
+A **static** memory system degrades over time:
+
+- Noise accumulates
+- Information becomes outdated
+- Retrieval failures go uncorrected
+- Structure becomes unfit for new needs
+
+A **self-improving** system:
+- Identifies its own errors
+- Corrects recurring problems
+- Evolves with needs
+
+---
+
+## Loop Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    OUTER LOOP (weekly)                      │
+│                    OUTER LOOP (weekly)                       │
 │                                                              │
-│  ┌─────────────┐    ┌──────────────┐    ┌──────────────┐   │
-│  │ Self-review │───→│ Pattern       │───→│ Structural    │   │
-│  │ analysis    │    │ detection     │    │ improvements  │   │
-│  └─────────────┘    └──────────────┘    └──────────────┘   │
-│         │                                     │             │
-│         └─────────────────────────────────────┘             │
-│                         ↓                                    │
-│              ┌──────────────────────┐                        │
-│              │ Update MEMORY.md     │                        │
-│              │ Update files        │                        │
-│              │ (keywords, related)  │                        │
-│              └──────────────────────┘                        │
+│  ┌─────────────┐    ┌──────────────┐    ┌──────────────┐    │
+│  │ Self-review │───→│ Pattern      │───→│ Structural   │    │
+│  │ analysis    │    │ detection    │    │ improvements │    │
+│  └─────────────┘    └──────────────┘    └──────────────┘    │
+│         │                                      │             │
+│         └──────────────────────────────────────┘             │
+│                            ↓                                  │
+│             ┌──────────────────────┐                         │
+│             │ Update MEMORY.md      │                         │
+│             │ Update files         │                         │
+│             │ (keywords, related)  │                         │
+│             └──────────────────────┘                         │
 └─────────────────────────────────────────────────────────────┘
                           ↑
                           │ (cron daily 21h)
@@ -54,8 +54,8 @@ Un système **auto-améliorant** :
                           ↑
                           │
               ┌───────────────────────────┐
-              │ Events during session:    │
-              │ - Error occurs           │
+              │ Events during session:     │
+              │ - Error occurs            │
               │ - User corrects          │
               │ - Missing capability     │
               │ - Better approach found  │
@@ -64,7 +64,7 @@ Un système **auto-améliorant** :
 
 ---
 
-## Les 3 fichiers de learnings
+## The 3 Learnings Files
 
 ### `.learnings/LEARNINGS.md`
 ```markdown
@@ -75,13 +75,13 @@ Corrections, insights, and knowledge gaps captured.
 **Categories**: correction | insight | knowledge_gap | best_practice
 ```
 
-**Quand populer :**
-- User dit "No, that's wrong..."
-- User corrige une information
-- On découvre qu'on avait tort
-- On trouve une meilleure approche
+**When to populate:**
+- User says "No, that's wrong..."
+- User corrects information
+- We discover we were wrong
+- We find a better approach
 
-**Format d'entrée :**
+**Entry format:**
 ```markdown
 ## [LRN-YYYYMMDD-XXX] category
 
@@ -116,13 +116,13 @@ Specific fix or improvement to make
 Command failures and integration errors.
 ```
 
-**Quand populer :**
-- Commande échoue (exit code != 0)
-- API retourne une erreur
-- Exception ou stack trace
-- Timeout ou connection failure
+**When to populate:**
+- Command fails (exit code != 0)
+- API returns an error
+- Exception or stack trace
+- Timeout or connection failure
 
-**Format d'entrée :**
+**Entry format:**
 ```markdown
 ## [ERR-YYYYMMDD-XXX] skill_or_command_name
 
@@ -160,13 +160,13 @@ If identifiable, what might resolve this
 Capabilities requested by the user.
 ```
 
-**Quand populer :**
-- User demande quelque chose qui n'existe pas
+**When to populate:**
+- User asks for something that doesn't exist
 - "Can you also..."
 - "I wish you could..."
 - "Is there a way to..."
 
-**Format d'entrée :**
+**Entry format:**
 ```markdown
 ## [FEAT-YYYYMMDD-XXX] capability_name
 
@@ -192,51 +192,51 @@ How this could be built, what it might extend
 
 ## Self-Review Journal
 
-**Fichier**: `memory/summaries/self-review.md`
+**File**: `memory/summaries/self-review.md`
 
 ### Structure
 ```markdown
 # Self-Review — Memory System Improvement Log
 
-## 📊 Scorecard — Santé du Système
+## 📊 Scorecard — System Health
 
-| Composant | Status | Notes |
+| Component | Status | Notes |
 |-----------|--------|-------|
-| Daily capture | ✅ | Opérationnel |
-| Cron distillation | ✅ | Configuré |
-| Graph mémoire | ✅ | En place |
-| Retrieval optimization | ✅ | Terminé |
-| Self-improvement loop | 🔄 | En construction |
+| Daily capture | ✅ | Operational |
+| Cron distillation | ✅ | Configured |
+| Graph memory | ✅ | In place |
+| Retrieval optimization | ✅ | Done |
+| Self-improvement loop | 🔄 | Built-in now |
 
-## 🔄 Boucle d'Amélioration
+## 🔄 Improvement Loop
 
 ### Trigger
-- **Quand** : à chaque distillation (quotidien 21h) + review manuelle
-- **Source** : `.learnings/`
+- **When**: at each distillation (daily 21h) + manual review
+- **Source**: `.learnings/`
 
-### Processus
-1. Lire les entrées `pending` dans `.learnings/`
-2. Analyser les patterns récurrents
-3. Identifier les problèmes de retrieval
-4. Proposer des actions correctives
-5. Mettre à jour les fichiers concernés
-6. Marquer les entrées résolues
+### Process
+1. Read pending entries in `.learnings/`
+2. Analyze recurring patterns
+3. Identify retrieval problems
+4. Propose corrective actions
+5. Update relevant files
+6. Mark resolved entries
 
 ## 📝 Entries — Retrieval Errors & Improvements
 
-### [REV-20260417-001] Setup initial
+### [REV-20260417-001] Initial setup
 **Date**: 2026-04-17
 **Type**: system_setup
 **Status**: completed
 
 **Summary**: ...
-**Actions réalisées**: ...
-**Prochaine review**: 2026-04-24
+**Actions taken**: ...
+**Next review**: 2026-04-24
 ```
 
 ---
 
-## Processus de Self-Review (cron daily)
+## Self-Review Process (cron daily)
 
 ```python
 def self_review():
@@ -284,27 +284,27 @@ def self_review():
 
 ## Pattern Detection
 
-### Types de patterns
+### Pattern Types
 
-| Pattern | Seuil | Action |
-|---------|-------|--------|
+| Pattern | Threshold | Action |
+|---------|-----------|--------|
 | Retrieval failure | > 2/week | Add keywords, fix structure |
 | Same error | > 2/week | Document workaround |
 | Missing capability | > 1 occurrence | Log to FEATURE_REQUESTS |
 | Knowledge gap | > 1 occurrence | Add to MEMORY.md |
 | Better approach | 1 occurrence | Promote to best practice |
 
-### Exemple de detection
+### Detection Example
 
 ```python
 # Pseudo-code
 def detect_retrieval_failures():
     """
-    Si l'utilisateur dit quelque chose comme:
-    - "Je t'avais déjà dit..."
+    If user says something like:
+    - "I already told you..."
     - "Why didn't you remember..."
-    - "Tu devrais savoir que..."
-    → C'est un retrieval failure
+    - "You should know that..."
+    → This is a retrieval failure
     """
     recent_queries = get_recent_user_queries()
 
@@ -324,76 +324,76 @@ def detect_retrieval_failures():
 
 ## Structural Improvements
 
-### Quand ?
+### When?
 
-- Même fichier modifié > 3 fois/semaine
-- Même information dupliquée dans plusieurs fichiers
-- Fichier trop long ( > 500 lignes)
-- Retrieval qui échoue souvent pour un thème
+- Same file modified > 3 times/week
+- Same information duplicated across files
+- File too long (> 500 lines)
+- Retrieval often failing for a topic
 
-### Types d'amélioration
+### Improvement Types
 
 | Problem | Solution |
 |---------|----------|
-| Fichier trop long | Split en plusieurs fichiers atomiques |
-| Keywords insuffisants | Enrichir avec synonyms + FR/EN |
-| Graph incomplet | Ajouter Related: links |
-| Structure inadaptée | Refactorer (un fichier = une entité) |
-| Information dupliquée | Consolid into single source |
+| File too long | Split into multiple atomic files |
+| Insufficient keywords | Enrich with synonyms + FR/EN |
+| Incomplete graph | Add Related: links |
+| Unfit structure | Refactor (one file = one entity) |
+| Duplicated information | Consolidate into single source |
 
-### Exemple
+### Example
 
-**Avant** (problème) :
+**Before** (problem):
 ```
 memory/
-├── notes.md  (800 lignes, tout melangé)
+├── notes.md  (800 lines, everything mixed)
 ```
 
-**Après** (solution) :
+**After** (solution):
 ```
 memory/
 ├── projects/
-│   └── example-project.md  (200 lignes)
+│   └── example-project.md  (200 lines)
 ├── tools/
-│   └── example-tool.md     (150 lignes)
+│   └── example-tool.md     (150 lines)
 ├── people/
-│   └── john-doe.md         (100 lignes)
-└── notes.md               (supprimé, distribué)
+│   └── john-doe.md         (100 lines)
+└── notes.md               (removed, distributed)
 ```
 
 ---
 
 ## Promotion Rules
 
-### Quand promouvoir ?
+### When to Promote?
 
 | Condition | Destination |
 |-----------|-------------|
-| Best practice | SOUL.md ou AGENTS.md |
+| Best practice | SOUL.md or AGENTS.md |
 | Workflow improvement | AGENTS.md |
 | Tool behavior | TOOLS.md |
 | Project fact | MEMORY.md |
-| Recurring pattern (3+) | SYSTEM FILE appropprié |
+| Recurring pattern (3+) | Appropriate SYSTEM FILE |
 
-### Comment promouvoir
+### How to Promote
 
 ```markdown
-# Avant (dans LEARNINGS.md)
+# Before (in LEARNINGS.md)
 **Status**: pending
 **Suggested Action**: Add "Claude" as alias for "Claude.ai" in keywords
 
-# Après (dans MEMORY.md)
+# After (in MEMORY.md)
 ## Reformulated Concepts
 - "Claude" / "Claude.ai" / "claude.ai" / "Claude AI"
 
-# Update dans LEARNINGS.md
+# Update in LEARNINGS.md
 **Status**: promoted
 **Promoted**: MEMORY.md (Reformulated Concepts)
 ```
 
 ---
 
-## Metrics à suivre
+## Metrics to Track
 
 | Metric | Target | Alert |
 |--------|--------|-------|
@@ -401,40 +401,40 @@ memory/
 | Retrieval failures | < 2/week | > 5 |
 | Duplicate entries | 0 | > 1 |
 | Files without Keywords | 0 | > 2 |
-| Self-review entries | ~1/week | 0 (pas de review !) |
+| Self-review entries | ~1/week | 0 (no review!) |
 
 ---
 
-## Integration avec le cron
+## Cron Integration
 
 ```bash
-# Le cron 21h exécute:
-1. Distillation (voir memory-pipeline.md)
-2. Self-review (ce fichier)
+# The 21h cron runs:
+1. Distillation (see memory-pipeline.md)
+2. Self-review (this file)
 
-# Message envoyé au cron:
+# Message sent to cron:
 """
-Tu es Jarvis. Exécute la distillation de mémoire + self-review :
+Run memory distillation + self-review:
 
 DISTILLATION (1-5):
 [... distillation steps ...]
 
 SELF-REVIEW (6-9):
-6. Lire .learnings/LEARNINGS.md et .learnings/ERRORS.md — entrées pending
-7. Si entrées pending > 3 ou pattern récurrent détecté:
-   - Ajoute entrée dans memory/summaries/self-review.md
-   - Propose action corrective
-8. Ferme les entrées résolues (status: resolved)
-9. SI self-review.md a nouvelle entry significative
-   → promouvoir vers MEMORY.md ou fichiers atomiques
+6. Read .learnings/LEARNINGS.md and .learnings/ERRORS.md — pending entries
+7. If pending > 3 or recurring pattern detected:
+   - Add entry to memory/summaries/self-review.md
+   - Propose corrective action
+8. Close resolved entries (status: resolved)
+9. IF self-review.md has significant new entry
+   → promote to MEMORY.md or atomic files
 
-SILENCIEUX: Écriture fichiers uniquement, pas de message.
+SILENT: Files write only, no chat message.
 """
 ```
 
 ---
 
-## Cycle de review
+## Review Cycle
 
 ```
 Daily (cron 21h)
@@ -457,11 +457,11 @@ Monthly (manual)
 
 ---
 
-## Best practices
+## Best Practices
 
-1. **Log immediately** — Contexte frais = plus précis
-2. **Be specific** — Future Jarvis doit comprendre vite
-3. **Suggest concrete fixes** — Pas juste "investigate"
+1. **Log immediately** — Fresh context = more precise
+2. **Be specific** — Future Jarvis must understand quickly
+3. **Suggest concrete fixes** — Not just "investigate"
 4. **Link related entries** — Create web, not silo
-5. **Promote aggressively** — Si doute, ajouter à MEMORY.md
+5. **Promote aggressively** — When in doubt, add to MEMORY.md
 6. **Review regularly** — Stale learnings = no value
