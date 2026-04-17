@@ -1,0 +1,40 @@
+# Sensitive files — NEVER commit
+
+# Workspace memory (private — real data)
+memory/dailies/
+MEMORY.md
+USER.md
+BOOT.md
+HEARTBEAT.md
+
+# Learnings (private)
+.learnings/
+
+# Session transcripts
+*.jsonl
+sessions/
+
+# Credentials
+.env
+*.key
+*.pem
+*credentials*
+*token*
+*secret*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# OpenClaw workspace files
+.openclaw/
+workspace/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# IDE
+.vscode/
+.idea/
