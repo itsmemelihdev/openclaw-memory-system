@@ -1,17 +1,17 @@
-# Memory Pipeline — Flux complet des données
+# Memory Pipeline — Complete Data Flow
 
-> Comment une information voyage de la session utilisateur jusqu'au système de retrieval.
+> How information travels from user session to retrieval system.
 
 ---
 
-## Vue d'ensemble du pipeline
+## Pipeline Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│  PHASE 1: CAPTURE                                                   │
+│  PHASE 1: CAPTURE                                                    │
 │  ┌──────────┐    ┌──────────────────┐    ┌────────────────────────┐  │
 │  │ Session  │───→│ Every interaction │───→│ Append to daily log   │  │
-│  │ (chat)   │    │ important info    │    │ memory/dailies/YYYY-  │  │
+│  │ (chat)   │    │ important info    │    │ memory/dailies/YYYY-   │  │
 │  └──────────┘    └──────────────────┘    │  MM-DD.md              │  │
 │                                          └────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────┘
@@ -21,7 +21,7 @@
 │  PHASE 2: DISTILLATION (cron 21h)                                   │
 │  ┌──────────────────┐    ┌──────────────────┐    ┌────────────────┐  │
 │  │ Read all dailies │───→│ Extract:          │───→│ Filter &       │  │
-│  │ since last run   │    │ Decision          │    │ reformulate   │  │
+│  │ since last run   │    │ Decision          │    │ reformulate    │  │
 │  │                  │    │ Information        │    │                │  │
 │  │                  │    │ Insight            │    │ Keep only      │  │
 │  │                  │    │ Error              │    │ stable facts  │  │
@@ -29,8 +29,8 @@
 │                                                           │         │
 │                                                           ↓         │
 │  ┌──────────────────┐    ┌──────────────────┐    ┌────────────────┐  │
-│  │ Update atomic    │←───│ Distribute to    │←───│ Write to       │  │
-│  │ files if needed  │    │ right files      │    │ MEMORY.md      │  │
+│  │ Update atomic    │←───│ Distribute to     │←───│ Write to       │  │
+│  │ files if needed  │    │ right files       │    │ MEMORY.md      │  │
 │  └──────────────────┘    └──────────────────┘    └────────────────┘  │
 └─────────────────────────────────────────────────────────────────────┘
                               │
@@ -38,20 +38,20 @@
 ┌─────────────────────────────────────────────────────────────────────┐
 │  PHASE 3: STORAGE (atomic files)                                    │
 │                                                                      │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐              │
-│  │ projects/   │  │ tools/       │  │ people/      │              │
-│  │ example.md  │  │ example.md   │  │ example.md   │              │
-│  └──────────────┘  └──────────────┘  └──────────────┘              │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐               │
+│  │ projects/   │  │ tools/       │  │ people/     │               │
+│  │ example.md  │  │ example.md   │  │ example.md  │               │
+│  └──────────────┘  └──────────────┘  └──────────────┘               │
 │                                                                      │
-│  ┌──────────────┐  ┌──────────────┐                                │
-│  │ ideas/      │  │ summaries/   │                                │
-│  │ todo.md     │  │ weekly.md    │                                │
-│  └──────────────┘  └──────────────┘                                │
+│  ┌──────────────┐  ┌──────────────┐                                 │
+│  │ ideas/      │  │ summaries/   │                                 │
+│  │ todo.md     │  │ weekly.md    │                                 │
+│  └──────────────┘  └──────────────┘                                 │
 └─────────────────────────────────────────────────────────────────────┘
                               │
                               ↓
 ┌─────────────────────────────────────────────────────────────────────┐
-│  PHASE 4: RETRIEVAL (on-demand)                                    │
+│  PHASE 4: RETRIEVAL (on-demand)                                     │
 │                                                                      │
 │  ┌──────────────┐    ┌──────────────────┐    ┌────────────────────┐   │
 │  │ User query   │───→│ Generate variants │───→│ Search files     │   │
@@ -70,40 +70,40 @@
 
 ## Phase 1 — Capture (Session)
 
-###触发
-Toute interaction utilisateur significative.
+### Trigger
+Every significant user interaction.
 
-### Règle
+### Rule
 > "Append only — never overwrite."
 
-### Format dans `memory/dailies/YYYY-MM-DD.md`
+### Format in `memory/dailies/YYYY-MM-DD.md`
 
 ```markdown
-## [HH:MM] — [Contexte ou titre]
+## [HH:MM] — [Context]
 
-* Information: L'utilisateur a mentionné un nouveau projet
-* Decision: On utilise Notion comme OS principal
-* Insight: Le client prefere les responses courtes
-* Error: L'API Notion a retourné une erreur 400
+* Information: User mentioned a new project
+* Decision: Using Notion as main OS
+* Insight: Client prefers short responses
+* Error: Notion API returned a 400 error
 
-## [HH:MM] — [Contexte suivant]
+## [HH:MM] — [Next context]
 
 * Information: ...
 ```
 
-### Ce qu'on capture (sans filtrer)
-- Décisions (explicites ou implicites)
-- Informations contextuelles
-- Insights et intuitions
-- Erreurs et corrections
-- Préférences utilisateurs
-- Tâches identifiées
-- Idées en vrac
+### What's Captured (without filtering)
+- Decisions (explicit or implicit)
+- Contextual information
+- Insights and intuitions
+- Errors and corrections
+- User preferences
+- Identified tasks
+- Raw ideas
 
-### Ce qu'on ne fait PAS
-- On n'édite pas les fichiers existants
-- On n'efface pas
-- On ne filtre pas (tout peut être utile)
+### What We Do NOT Do
+- We don't edit existing files
+- We don't delete anything
+- We don't filter (everything could be useful)
 
 ---
 
@@ -114,59 +114,59 @@ Toute interaction utilisateur significative.
 0 21 * * *  # Every day at 21:00 Paris
 ```
 
-### Processus détaillé
+### Detailed Process
 
 ```
-1. LIRE .last_distill_date
-   └─ Si 2026-04-16 → traiter tous les fichiers > 2026-04-16
+1. READ .last_distill_date
+   └─ If 2026-04-16 → process all files > 2026-04-16
 
-2. POUR CHAQUE daily:
-   Extraire les lignes contenant:
+2. FOR EACH daily:
+   Extract lines containing:
    - "* Decision:"
    - "* Information:"
    - "* Insight:"
    - "* Error:"
 
-3. POUR CHAQUE extraction:
-   - Dédupliquer (si même info plusieurs fois)
-   - Évaluer la stabilité (va durer +1 mois ?)
-   - Reformuler clairement
+3. FOR EACH extraction:
+   - Deduplicate (if same info appears multiple times)
+   - Evaluate stability (will it last > 1 month?)
+   - Reformulate clearly
 
-4. DISTRIBUER:
+4. DISTRIBUTE:
    a. MEMORY.md → append section "## Distilled YYYY-MM-DD HH:MM"
-   b. memory/projects/NOM.md → créer ou mettre à jour
-   c. memory/tools/NOM.md → créer ou mettre à jour
-   d. memory/people/NOM.md → créer ou mettre à jour
-   e. memory/summaries/self-review.md → si pattern récurrent
+   b. memory/projects/NAME.md → create or update
+   c. memory/tools/NAME.md → create or update
+   d. memory/people/NAME.md → create or update
+   e. memory/summaries/self-review.md → if recurring pattern
 
-5. ÉCRIRE .last_distill_date = today
+5. WRITE .last_distill_date = today
 
 6. SELF-REVIEW:
-   - Lire .learnings/LEARNINGS.md (pending entries)
-   - Lire .learnings/ERRORS.md (pending entries)
-   - Si > 3 pending OU pattern récurrent:
-     → Écrire dans self-review.md
-     → Proposer action corrective
-   - Marquer entries résolues
+   - Read .learnings/LEARNINGS.md (pending entries)
+   - Read .learnings/ERRORS.md (pending entries)
+   - If > 3 pending OR recurring pattern:
+     → Write to self-review.md
+     → Propose corrective action
+   - Mark resolved entries
 ```
 
-### Critères de distillation
+### Distillation Criteria
 
-| Type | Garder ? | Raison |
-|------|----------|--------|
-| Décision stratégique | ✅ Oui | Stable long terme |
-| Information factuelle | ✅ Oui | Reference |
-| Preference utilisateur | ✅ Oui | Important pour UX |
-| Erreur corrigée | ✅ Oui | Ne pas répéter |
-| Insight contextuel | ⚠️ Selon | Si recurring → garder |
-| Log technique | ❌ Non | Bruit, pas pertinent |
-| Thought process | ❌ Non | Déjà dans session |
+| Type | Keep? | Reason |
+|------|-------|--------|
+| Strategic decision | ✅ Yes | Stable long-term |
+| Factual information | ✅ Yes | Reference |
+| User preference | ✅ Yes | Important for UX |
+| Fixed error | ✅ Yes | Don't repeat |
+| Contextual insight | ⚠️ Maybe | If recurring → keep |
+| Technical log | ❌ No | Noise, not relevant |
+| Thought process | ❌ No | Already in session |
 
 ---
 
-## Phase 3 — Stockage (Atomic Files)
+## Phase 3 — Storage (Atomic Files)
 
-### Template standard
+### Standard Template
 
 ```markdown
 # [Entity Name] — [Type]
@@ -190,15 +190,15 @@ Toute interaction utilisateur significative.
 * memory/people/related-person.md
 
 ### Context:
-Explication courte: pourquoi ce fichier existe, comment il s'insère
-dans le système.
+Short explanation: why this file exists, how it fits
+into the system.
 
 ### Keywords:
 word1, word2, synonym1, synonym2, variantFR, variantEN, abbreviation
 related-term1, related-term2, technical-term, category-name
 ```
 
-### Exemple: `memory/tools/notion-api.md`
+### Example: `memory/tools/notion-api.md`
 
 ```markdown
 # Notion API — Tool
@@ -209,7 +209,7 @@ related-term1, related-term2, technical-term, category-name
 - API Key: stored in ~/.config/notion/api_key
 - Base URL: https://api.notion.com/v1/
 
-## Database IDs (exemple)
+## Database IDs (example)
 - Main Database: 344b3135-be59-8034-93e0-e078ca6e602c
 - Tasks: 344b3135-be59-8108-b568-e5be0324e473
 
@@ -225,58 +225,58 @@ curl -s -X GET "https://api.notion.com/v1/databases/{id}/query" \
 * memory/tools/github-api.md
 
 ### Context:
-Outil utilisé pour piloter le Notion OS. Toutes les operations
-CRM passent par cette API.
+Tool used to manage the Notion OS. All CRM operations
+go through this API.
 
 ### Keywords:
 Notion, API, database, query, page, block, notion.so, notion API
-base de données, requête API, integration Notion
+base de données, requête API, Notion integration
 ```
 
 ---
 
 ## Phase 4 — Retrieval (On-demand)
 
-###触发
-Quand Jarvis fait `memory_search` (appel obligatoire avant de répondre sur des faits passés).
+### Trigger
+When Jarvis runs `memory_search` (mandatory before answering about past facts).
 
-### Processus
+### Process
 
 ```
-1. QUERY: "comment on upload un fichier sur Notion ?"
+1. QUERY: "how do I upload a file to Notion?"
 
-2. GENERER VARIANTS:
-   - Original: "upload fichier Notion"
+2. GENERATE VARIANTS:
+   - Original: "upload file Notion"
    - FR: "uploader fichier Notion", "ajouter fichier Notion"
    - EN: "upload file to Notion", "attach file Notion"
-   - Synonyms: "attach", "link", "fichier", "file", "media"
+   - Synonyms: "attach", "link", "file", "media"
 
 3. SEARCH:
-   Pour chaque variant:
-   - Grep dans MEMORY.md
-   - Grep dans memory/**/*.md
-   - Avec keywords expandus
+   For each variant:
+   - Grep in MEMORY.md
+   - Grep in memory/**/*.md
+   - With expanded keywords
 
 4. RANK:
-   - Exact match → score élevé
-   - Partial match → score moyen
-   - Keyword match → score faible
+   - Exact match → high score
+   - Partial match → medium score
+   - Keyword match → low score
 
 5. RETURN:
-   Top 3-5 résultats avec:
-   - Path du fichier
-   - Lines pertinentes
-   - Score de confiance
+   Top 3-5 results with:
+   - File path
+   - Relevant lines
+   - Confidence score
 
-6. SI résultat unclear:
-   → Lire le fichier complet
-   → Répondre avec l'information trouvée
+6. IF result unclear:
+   → Read full file
+   → Respond with found information
 ```
 
-### Exemple de search
+### Search Example
 
 ```
-Query: " Notion API database query"
+Query: "Notion API database query"
 
 Search terms used:
 - "notion"
@@ -297,7 +297,7 @@ Confidence: HIGH
 
 ---
 
-## Boucle complète (visual)
+## Complete Loop (visual)
 
 ```
     ┌──────────────────────────────────────────────────────────────┐
@@ -306,47 +306,47 @@ Confidence: HIGH
 [Session] ──append──→ [dailies/]                                    │
                               │                                     │
                               │ cron 21h                           │
-                              ↓                                     │
+                              ▼                                     │
                       [Distillation]                               │
                               │                                     │
               ┌───────────────┼───────────────┐                     │
-              ↓               ↓               ↓                     │
-       [MEMORY.md]    [atomic files]   [self-review]              │
+              ▼               ▼               ▼                     │
+       [MEMORY.md]    [atomic files]   [self-review]               │
               │               │               │                     │
               └───────────────┼───────────────┘                     │
                               │                                     │
-                              ↓                                     │
+                              ▼                                     │
                       [Storage layer]                               │
                               │                                     │
                               │ memory_search                       │
-                              ↓                                     │
+                              ▼                                     │
                        [Retrieval]                                 │
                               │                                     │
                               └──────────────→ [Response]            │
                                                         ▲          │
                                                         │          │
-                                            [User query] ──┘          │
+                                            [User query] ──┘        │
 ```
 
 ---
 
 ## State Management
 
-### Fichier: `.last_distill_date`
+### File: `.last_distill_date`
 
 ```
 2026-04-16
 ```
 
-→ Le cron sait exactement quels dailies traiter.
+→ Cron knows exactly which dailies to process.
 
-### Fichier: `HEARTBEAT.md`
+### File: `HEARTBEAT.md`
 
 ```
 # Keep this file empty (or with only comments) to skip heartbeat API calls.
 ```
 
-→ Si vide, pas de heartbeat polling.
+→ If empty, no heartbeat polling.
 
 ---
 
@@ -354,30 +354,30 @@ Confidence: HIGH
 
 | Situation | Action |
 |-----------|--------|
-| Daily file corrompu | Skip, log error in `.learnings/ERRORS.md` |
-| Cron fails | Retry next day, pas de perte (les dailies restent) |
-| Atomic file manquant | Le créer à la prochaine distillation |
-| Duplicate entry | Dédoublonner avant écriture |
+| Corrupted daily file | Skip, log error in `.learnings/ERRORS.md` |
+| Cron fails | Retry next day, no data loss (dailies remain) |
+| Missing atomic file | Create at next distillation |
+| Duplicate entry | Deduplicate before writing |
 
 ---
 
-## Sécurité
+## Security
 
-### Données séparées
+### Data Separation
 
 ```
-Repo public (ce repository)
+Public repo (this repository)
 ├── README.md
 ├── docs/
 ├── examples/
 └── .github/
 
-Workspace privé (jamais pushé)
+Private workspace (never pushed)
 ├── MEMORY.md          ← Contains real data
 ├── memory/dailies/   ← Contains real logs
 ├── memory/projects/  ← Contains real projects
 └── .learnings/       ← Contains real learnings
 ```
 
-### Règle
-> Jamais push `MEMORY.md`, `memory/dailies/`, ou `.learnings/` dans un repo public.
+### Rule
+> Never push `MEMORY.md`, `memory/dailies/`, or `.learnings/` to a public repo.
