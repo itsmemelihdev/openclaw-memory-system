@@ -1,34 +1,34 @@
 # OpenClaw Memory System
 
-> Un système de mémoire atomique,蒸馏é, graphée et auto-améliorant pour agents IA.
+> An atomic, distilled, graph-linked, and self-improving memory system for AI agents.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🎯 Pourquoi ce système ?
+## 🎯 Why This System?
 
-Les agents IA souffre de trois problèmes fondamentaux :
+AI agents suffer from three fundamental problems:
 
-| Problème | Solution apportée |
-|----------|-------------------|
-| **Perte de contexte** entre sessions | Fichiers `dailies/` + append systématique |
-| **Mémoire saturée** de logs bruts | Distillation automatique quotidienne |
-| **Retrieval failure** quand on a besoin | Graph + keywords + synonyms |
+| Problem | Solution |
+|---------|----------|
+| **Context loss** between sessions | `dailies/` files + systematic append |
+| **Memory overload** with raw logs | Automatic daily distillation |
+| **Retrieval failure** when needed | Graph + keywords + synonyms |
 
-Ce système transforme une mémoire brute en **système de connaissance exploitable**.
+This system transforms raw memory into an **exploitable knowledge system**.
 
 ---
 
-## 🏗️ Architecture en 5 couches
+## 🏗️ 5-Layer Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    1. CAPTURE (dailies)                     │
-│   Every interaction → append to memory/dailies/YYYY-MM-DD   │
+│   Every interaction → append to memory/dailies/YYYY-MM-DD    │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
 │                   2. DISTILLATION (cron)                    │
-│   Daily at 21h: extract decisions, insights, errors         │
+│   Daily at 21h Paris: extract decisions, insights, errors     │
 │   → MEMORY.md (long-term) + atomic files                    │
 └─────────────────────────────────────────────────────────────┘
                             ↓
@@ -40,22 +40,22 @@ Ce système transforme une mémoire brute en **système de connaissance exploita
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
 │               4. GRAPH LINKING (relationships)              │
-│   Related: paths to related files                          │
-│   Keywords: FR/EN synonyms + variants                      │
-│   Context: why this file exists                            │
+│   Related: paths to related files                            │
+│   Keywords: FR/EN synonyms + variants                        │
+│   Context: why this file exists                              │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
 │              5. RETRIEVAL OPTIMIZATION                      │
-│   Semantic search via memory_search                         │
-│   Keywords + synonyms + reformulations                    │
-│   Hybrid: semantic + keyword matching                       │
+│   Semantic search via memory_search                          │
+│   Keywords + synonyms + reformulations                      │
+│   Hybrid: semantic + keyword matching                        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 📂 Structure du système de fichiers
+## 📂 File Structure
 
 ```
 workspace/
@@ -86,38 +86,38 @@ workspace/
 │       └── self-review.md
 │
 ├── .learnings/                  # Self-improvement loop
-│   ├── LEARNINGS.md            # Corrections, best practices
-│   ├── ERRORS.md               # Command failures
-│   └── FEATURE_REQUESTS.md     # Missing capabilities
+│   ├── LEARNINGS.md             # Corrections, best practices
+│   ├── ERRORS.md                # Command failures
+│   └── FEATURE_REQUESTS.md      # Missing capabilities
 │
-└── .last_distill_date          # State file for cron
+└── .last_distill_date           # State file for cron
 ```
 
 ---
 
-## ⚡ Fonctionnement
+## ⚡ How It Works
 
-### Session start (BOOT.md)
-1. Lire `SOUL.md` + `USER.md`
-2. Lire daily du jour + veille
-3. Charger MEMORY.md si session principale
+### Session Start (BOOT.md)
+1. Read `SOUL.md` + `USER.md`
+2. Read today's daily + yesterday's daily
+3. Load MEMORY.md if main session
 4. Ready to respond
 
-### During session
-- Chaque interaction importante → append à `memory/dailies/YYYY-MM-DD.md`
+### During Session
+- Every important interaction → append to `memory/dailies/YYYY-MM-DD.md`
 - Format: `* Decision:*` / `* Information:*` / `* Insight:*`
 
-### End of day (CRON 21h Paris)
-1. Lit tous les dailies depuis dernière distillation
-2. Extrait décisions + insights + errors
-3. Append à MEMORY.md (section `## Distilled Updates`)
-4. Met à jour les fichiers atomiques si changement
-5. Self-review: analyse `.learnings/` pending
-6. Log date dans `.last_distill_date`
+### End of Day (CRON 21h Paris)
+1. Read all dailies since last distillation
+2. Extract decisions + insights + errors
+3. Append to MEMORY.md (section `## Distilled Updates`)
+4. Update atomic files if changed
+5. Self-review: analyze `.learnings/` pending entries
+6. Log date in `.last_distill_date`
 
 ---
 
-## 🔄 Pipeline complet
+## 🔄 Complete Pipeline
 
 ```
 [Session]
@@ -140,25 +140,25 @@ memory/dailies/YYYY-MM-DD.md
 
 ---
 
-## 🛡️ Sécurité des données
+## 🛡️ Data Security
 
-| Règle | Application |
-|-------|------------|
-| Aucune donnée réelle dans le repo | Toutes les données sont fictives |
-| Credentials jamais committed | `.gitignore` + pas de tokens |
-| Logs bruts isolés | `memory/dailies/` n'est pas pushé |
-| Promo only after distillation | MEMORY.md = only clean facts |
+| Rule | Application |
+|------|-------------|
+| No real data in repo | All data is fictional |
+| Credentials never committed | `.gitignore` + no tokens |
+| Raw logs isolated | `memory/dailies/` not pushed |
+| Promo only after distillation | MEMORY.md = clean facts only |
 
 ---
 
 ## 📚 Documentation
 
-- [Architecture](./docs/architecture.md) — Détail des 5 couches
-- [Memory Pipeline](./docs/memory-pipeline.md) — Flux de données complet
+- [Architecture](./docs/architecture.md) — 5 layers detailed
+- [Memory Pipeline](./docs/memory-pipeline.md) — Complete data flow
 - [Retrieval System](./docs/retrieval-system.md) — Synonyms, keywords, hybrid search
-- [Self-Improvement](./docs/self-improvement.md) — Boucle de feedback
+- [Self-Improvement](./docs/self-improvement.md) — Feedback loop
 
-## 📖 Exemples
+## 📖 Examples
 
 - [Sample Memory Structure](./examples/sample-memory-structure.md)
 - [Sample Daily Log](./examples/sample-daily-log.md)
@@ -168,7 +168,7 @@ memory/dailies/YYYY-MM-DD.md
 
 ## 🚀 Installation
 
-Ce système est conçu pour OpenClaw. Pour l'installer :
+This system is designed for OpenClaw. To install:
 
 ```bash
 # Clone this repo
@@ -177,10 +177,10 @@ mkdir -p ~/.openclaw/workspace/memory/
 cp -r openclaw-memory-system/* ~/.openclaw/workspace/
 ```
 
-Ou lancez simplement les commands dans votre workspace OpenClaw existant.
+Or run the commands in your existing OpenClaw workspace.
 
 ---
 
 ## 📝 License
 
-MIT — Utilisez librement, contribuez avec plaisir.
+MIT — Use freely, contribute gladly.
